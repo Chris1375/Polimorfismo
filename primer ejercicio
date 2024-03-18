@@ -1,0 +1,244 @@
+public class Vehiculo {
+    private String numeroSerieMotor;
+    private String marca;
+    private int año;
+    private double precio;
+
+    public Vehiculo(String numeroSerieMotor, String marca, int año, double precio) {
+        this.numeroSerieMotor = numeroSerieMotor;
+        this.marca = marca;
+        this.año = año;
+        this.precio = precio;
+    }
+
+    public String getNumeroSerieMotor() {
+        return numeroSerieMotor;
+    }
+
+    public void setNumeroSerieMotor(String numeroSerieMotor) {
+        this.numeroSerieMotor = numeroSerieMotor;
+    }
+
+    public String getMarca() {
+        return marca;
+    }
+
+    public void setMarca(String marca) {
+        this.marca = marca;
+    }
+
+    public int getAño() {
+        return año;
+    }
+
+    public void setAño(int año) {
+        this.año = año;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public double calcularDescuentoNavidad() {
+        return 0; // No hay descuento por defecto
+    }
+
+    public double calcularTotal() {
+        return getPrecio() - calcularDescuentoNavidad();
+    }
+
+    public void imprimirInfo() {
+        System.out.println("Número de serie del motor: " + numeroSerieMotor);
+        System.out.println("Marca: " + marca);
+        System.out.println("Año: " + año);
+        System.out.println("Precio: $" + precio);
+        System.out.println("Total a pagar: $" + calcularTotal());
+    }
+}
+
+
+
+
+
+
+
+
+
+public class Compacto extends Vehiculo {
+    public Compacto(String numeroSerieMotor, String marca, int año, double precio) {
+        super(numeroSerieMotor, marca, año, precio);
+    }
+    @Override
+    public double calcularDescuentoNavidad() {
+        return getPrecio() * 0.05; // 5% de descuento para autos compactos
+    }
+}
+
+
+
+
+
+public class Lujo extends Vehiculo {
+    public Lujo(String numeroSerieMotor, String marca, int año, double precio) {
+        super(numeroSerieMotor, marca, año, precio);
+    }
+    @Override
+    public double calcularDescuentoNavidad() {
+        return getPrecio() * 0.10; // 10% de descuento para autos de lujo
+    }
+}
+
+
+
+
+
+
+
+
+public class Camioneta extends Vehiculo {
+    private int capacidadCarga;
+    private int cantidadEjes;
+    private int cantidadRodadas;
+
+    public Camioneta(String numeroSerieMotor, String marca, int año, double precio, int capacidadCarga, int cantidadEjes, int cantidadRodadas) {
+        super(numeroSerieMotor, marca, año, precio);
+        this.capacidadCarga = capacidadCarga;
+        this.cantidadEjes = cantidadEjes;
+        this.cantidadRodadas = cantidadRodadas;
+    }
+
+    public int getCapacidadCarga() {
+        return capacidadCarga;
+    }
+
+    public void setCapacidadCarga(int capacidadCarga) {
+        this.capacidadCarga = capacidadCarga;
+    }
+
+    public int getCantidadEjes() {
+        return cantidadEjes;
+    }
+
+    public void setCantidadEjes(int cantidadEjes) {
+        this.cantidadEjes = cantidadEjes;
+    }
+
+    public int getCantidadRodadas() {
+        return cantidadRodadas;
+    }
+
+    public void setCantidadRodadas(int cantidadRodadas) {
+        this.cantidadRodadas = cantidadRodadas;
+    }
+
+    @Override
+    public double calcularDescuentoNavidad() {
+        return getPrecio() * 0.15; // 15% de descuento para camionetas
+    }
+
+    @Override
+    public void imprimirInfo() {
+        super.imprimirInfo();
+        System.out.println("Capacidad de carga: " + capacidadCarga + " kg");
+        System.out.println("Cantidad de ejes: " + cantidadEjes);
+        System.out.println("Cantidad de rodadas: " + cantidadRodadas);
+    }
+}
+
+
+
+
+
+
+
+
+public class Vagoneta extends Vehiculo {
+    private int cantidadPasajeros;
+
+    public Vagoneta(String numeroSerieMotor, String marca, int año, double precio, int cantidadPasajeros) {
+        super(numeroSerieMotor, marca, año, precio);
+        this.cantidadPasajeros = cantidadPasajeros;
+    }
+
+    public int getCantidadPasajeros() {
+        return cantidadPasajeros;
+    }
+
+    public void setCantidadPasajeros(int cantidadPasajeros) {
+        this.cantidadPasajeros = cantidadPasajeros;
+    }
+
+    @Override
+    public double calcularDescuentoNavidad() {
+        return getPrecio() * 0.20; // 20% de descuento para vagonetas
+    }
+
+    @Override
+    public void imprimirInfo() {
+        super.imprimirInfo();
+        System.out.println("Cantidad de pasajeros: " + cantidadPasajeros);
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese los datos del vehículo:");
+        System.out.print("Número de serie del motor: ");
+        String numeroSerieMotor = scanner.nextLine();
+        System.out.print("Marca: ");
+        String marca = scanner.nextLine();
+        System.out.print("Año: ");
+        int año = scanner.nextInt();
+        System.out.print("Precio: ");
+        double precio = scanner.nextDouble();
+
+        System.out.println("Seleccione el tipo de vehículo:");
+        System.out.println("1. Compacto");
+        System.out.println("2. Lujo");
+        System.out.println("3. Camioneta");
+        System.out.println("4. Vagoneta");
+        int tipoVehiculo = scanner.nextInt();
+
+        switch (tipoVehiculo) {
+            case 1:
+                Vehiculo compacto = new Compacto(numeroSerieMotor, marca, año, precio);
+                compacto.imprimirInfo();
+                break;
+            case 2:
+                Vehiculo lujo = new Lujo(numeroSerieMotor, marca, año, precio);
+                lujo.imprimirInfo();
+                break;
+            case 3:
+                System.out.print("Capacidad de carga (kg): ");
+                int capacidadCarga = scanner.nextInt();
+                System.out.print("Cantidad de ejes: ");
+                int cantidadEjes = scanner.nextInt();
+                System.out.print("Cantidad de rodadas: ");
+                int cantidadRodadas = scanner.nextInt();
+                Vehiculo camioneta = new Camioneta(numeroSerieMotor, marca, año, precio, capacidadCarga, cantidadEjes, cantidadRodadas);
+                camioneta.imprimirInfo();
+                break;
+            case 4:
+                System.out.print("Cantidad de pasajeros: ");
+                int cantidadPasajeros = scanner.nextInt();
+                Vehiculo vagoneta = new Vagoneta(numeroSerieMotor, marca, año, precio, cantidadPasajeros);
+                vagoneta.imprimirInfo();
+                break;
+            default:
+        }
+    }
+}
