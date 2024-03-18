@@ -1,0 +1,142 @@
+import java.util.Scanner;
+
+class Farmacia {
+    protected int clave;
+    protected String nombre;
+
+    public Farmacia(int clave, String nombre) {
+        this.clave = clave;
+        this.nombre = nombre;
+    }
+
+    public int getClave() {
+        return clave;
+    }
+
+    public void setClave(int clave) {
+        this.clave = clave;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public double calcularTotal() {
+        return 0.0;
+    }
+}
+
+
+
+
+
+
+
+class Medicamento extends Farmacia {
+    private double precio;
+    private int cantidad;
+    private String diaCompra;
+
+    public Medicamento(int clave, String nombre, double precio, int cantidad, String diaCompra) {
+        super(clave, nombre);
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.diaCompra = diaCompra;
+    }
+
+    public double calcularTotal() {
+        double total = precio * cantidad;
+        if (diaCompra.equalsIgnoreCase("martes")) {
+            total *= 0.8; // Aplicar 20% de descuento
+        }
+        return total;
+    }
+}
+
+
+
+
+
+
+
+
+
+class Abarrote extends Farmacia {
+    private double precio;
+    private int cantidad;
+    private String diaCompra;
+
+    public Abarrote(int clave, String nombre, double precio, int cantidad, String diaCompra) {
+        super(clave, nombre);
+        this.precio = precio;
+        this.cantidad = cantidad;
+        this.diaCompra = diaCompra;
+    }
+
+    public double calcularTotal() {
+        double total = precio * cantidad;
+        if (diaCompra.equalsIgnoreCase("jueves")) {
+            total *= 0.85; // Aplicar 15% de descuento
+        }
+        return total;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Ingrese los datos del medicamento:");
+        System.out.print("Clave: ");
+        int claveMedicamento = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+        System.out.print("Nombre: ");
+        String nombreMedicamento = scanner.nextLine();
+        System.out.print("Precio: ");
+        double precioMedicamento = scanner.nextDouble();
+        System.out.print("Cantidad: ");
+        int cantidadMedicamento = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+        System.out.print("Día de compra: ");
+        String diaCompraMedicamento = scanner.nextLine();
+
+        Medicamento medicamento = new Medicamento(claveMedicamento, nombreMedicamento, precioMedicamento, cantidadMedicamento, diaCompraMedicamento);
+
+        System.out.println("\nIngrese los datos del abarrote:");
+        System.out.print("Clave: ");
+        int claveAbarrote = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+        System.out.print("Nombre: ");
+        String nombreAbarrote = scanner.nextLine();
+        System.out.print("Precio: ");
+        double precioAbarrote = scanner.nextDouble();
+        System.out.print("Cantidad: ");
+        int cantidadAbarrote = scanner.nextInt();
+        scanner.nextLine(); // Limpiar el buffer del scanner
+        System.out.print("Día de compra: ");
+        String diaCompraAbarrote = scanner.nextLine();
+
+        Abarrote abarrote = new Abarrote(claveAbarrote, nombreAbarrote, precioAbarrote, cantidadAbarrote, diaCompraAbarrote);
+
+        double totalMedicamento = medicamento.calcularTotal();
+        double totalAbarrote = abarrote.calcularTotal();
+
+        System.out.println("\nTotal a pagar por el medicamento: $" + totalMedicamento);
+        System.out.println("Total a pagar por el abarrote: $" + totalAbarrote);
+
+        scanner.close();
+    }
+}
