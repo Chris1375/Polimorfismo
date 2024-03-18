@@ -1,0 +1,183 @@
+public class NewMain {
+    public static void main(String[] args) {
+        LibroCurso libroTexto = new LibroCurso("Matematicas Avanzadas", "Juan Perez", 100, "Matematicas");
+        LibroUdeC libroUdeC = new LibroUdeC("Investigacion Cientifica", "Maria Gomez", 80, "Biologia", "Facultad de Ciencias Naturales");
+        Novela novela = new Novela("Cien anios de soledad", "Gabriel Garcia Marquez", 50, "Realista");
+
+        System.out.println("Informacion del libro de texto:");
+        libroTexto.imprimirInfo();
+        System.out.println("\nInformacion del libro de la Universidad de Cundinamarca:");
+        libroUdeC.imprimirInfo();
+        System.out.println("\nInformacion de la novela:");
+        novela.imprimirInfo();
+    }
+}
+
+
+
+
+
+
+
+
+
+
+class Libro {
+
+    private String titulo;
+    private String autor;
+    private double precio;
+
+    public Libro(String titulo, String autor, double precio) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.precio = precio;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getAutor() {
+        return autor;
+    }
+
+    public void setAutor(String autor) {
+        this.autor = autor;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public void imprimirInfo() {
+        System.out.println("Tttulo: " + titulo);
+        System.out.println("Autor: " + autor);
+        System.out.println("Precio: $" + precio);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+public class LibroCurso extends Libro {
+    private String curso;
+
+    public LibroCurso(String titulo, String autor, double precio, String curso) {
+        super(titulo, autor, precio);
+        this.curso = curso;
+    }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public void setCurso(String curso) {
+        this.curso = curso;
+    }
+
+    @Override
+    public void imprimirInfo() {
+        super.imprimirInfo();
+        System.out.println("Curso: " + curso);
+        System.out.println("Precio con descuento: $" + calcularDescuento());
+    }
+
+    private double calcularDescuento() {
+        return getPrecio() * 0.40;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class LibroUdeC extends LibroCurso {
+    private String facultad;
+
+    public LibroUdeC(String titulo, String autor, double precio, String curso, String facultad) {
+        super(titulo, autor, precio, curso);
+        this.facultad = facultad;
+    }
+
+    public String getFacultad() {
+        return facultad;
+    }
+
+    public void setFacultad(String facultad) {
+        this.facultad = facultad;
+    }
+
+    @Override
+    public void imprimirInfo() {
+        super.imprimirInfo();
+        System.out.println("Facultad: " + facultad);
+    }
+
+    public double calcularDescuento() {
+        return getPrecio() * 0.25;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class Novela extends Libro {
+    private String tipo;
+
+    public Novela(String titulo, String autor, double precio, String tipo) {
+        super(titulo, autor, precio);
+        this.tipo = tipo;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    @Override
+    public void imprimirInfo() {
+        super.imprimirInfo();
+        System.out.println("Tipo de novela: " + tipo);
+    }
+
+    public double calcularDescuento() {
+        return getPrecio() * 0.15;
+    }
+}
